@@ -1,6 +1,6 @@
 <template>
   <div>
-    <exchange-navbar />
+    <exchange-navbar :title="brandName" :items="menuItems" />
 
     <exchange-hero />
 
@@ -23,6 +23,18 @@ export default {
     ExchangeHero,
     ExchangeList,
     ExchangePagination,
+  },
+  data() {
+    return {
+      brandName: 'Exchangario',
+      menuItems: [
+        { text: 'Home' },
+        { text: 'About' },
+        { text: 'Faq' },
+        { text: 'Login' },
+        { text: 'Register' },
+      ],
+    }
   },
 }
 </script>
