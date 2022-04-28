@@ -17,7 +17,11 @@
                 }"
                 alt=""
               ></figure>
-              <div class="item-featured">Icon</div>
+              <div class="item-featured">
+                <div class="exchange-icon">
+                  <font-awesome-icon icon="star" />
+                </div>
+              </div>
             </a>
             <div class="item-tags">
               <a
@@ -64,5 +68,13 @@ export default {
   font-size: 34px;
   margin-bottom: 10px;
   font-weight: bold;
+}
+.exchange-icon {
+  color: #ffbc8c;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
