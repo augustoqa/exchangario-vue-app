@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <nav class="navbar">
+    <nav class="navbar" :class="$route.path === '/' ? '' : 'with-background'">
       <div class="container">
         <div class="navbar-brand">
           <a
