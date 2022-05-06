@@ -26,7 +26,7 @@
               v-for="item in items"
               v-bind:key="item.text"
               class="navbar-item nav-home"
-              href="#"
+              :href="item.link"
               >{{ item.text }}</a
             >
           </div>

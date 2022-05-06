@@ -1,7 +1,5 @@
 <template>
   <div>
-    <exchange-navbar :title="brandName" :items="menuItems" />
-
     <exchange-hero />
 
     <exchange-list :exchanges="exchanges" />
@@ -11,29 +9,19 @@
 </template>
 
 <script>
-import ExchangeNavbar from '../components/ExchangeNavbar.vue'
-import ExchangeHero from '../components/ExchangeHero.vue'
 import ExchangeList from '../components/ExchangeList.vue'
 import ExchangePagination from '../components/ExchangePagination.vue'
+import ExchangeHero from '../components/ExchangeHero.vue'
 
 export default {
   name: 'HomePage',
   components: {
-    ExchangeNavbar,
-    ExchangeHero,
     ExchangeList,
     ExchangePagination,
+    ExchangeHero,
   },
   data() {
     return {
-      brandName: 'Exchangario',
-      menuItems: [
-        { text: 'Home', link: '/' },
-        { text: 'About', link: '/about' },
-        { text: 'Faq', link: '/faq' },
-        { text: 'Login', link: '/login' },
-        { text: 'Register', link: '/register' },
-      ],
       exchanges: [
         {
           id: 'ad7a1231238dasd',

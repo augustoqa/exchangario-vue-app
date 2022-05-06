@@ -1,12 +1,31 @@
 <template>
   <div>
+    <exchange-navbar :title="brandName" :items="menuItems" />
+
     <router-view />
   </div>
 </template>
 
 <script>
+import ExchangeNavbar from './components/ExchangeNavbar.vue'
+
 export default {
   name: 'App',
+  components: {
+    ExchangeNavbar,
+  },
+  data() {
+    return {
+      brandName: 'Exchangario',
+      menuItems: [
+        { text: 'Home', link: '/' },
+        { text: 'About', link: '/about' },
+        { text: 'Faq', link: '/faq' },
+        { text: 'Login', link: '/login' },
+        { text: 'Register', link: '/register' },
+      ],
+    }
+  },
 }
 </script>
 
