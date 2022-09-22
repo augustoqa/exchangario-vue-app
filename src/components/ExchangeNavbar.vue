@@ -22,12 +22,12 @@
         </div>
         <div id="navbar-menu" class="navbar-menu">
           <div class="navbar-end">
-            <a
+            <router-link
               v-for="item in items"
               v-bind:key="item.text"
               class="navbar-item nav-home"
-              :href="item.link"
-              >{{ item.text }}</a
+              :to="item.link"
+              >{{ item.text }}</router-link
             >
           </div>
         </div>
