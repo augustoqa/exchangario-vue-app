@@ -4,6 +4,8 @@
 
     <exchange-list :exchanges="exchanges" />
 
+    <button @click="$store.dispatch('test')">Test VUEX</button>
+
     <exchange-pagination />
   </div>
 </template>
