@@ -26,7 +26,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('getExchanges')
+    this.$store.dispatch('exchange/getExchanges')
   },
 }
 </script>
