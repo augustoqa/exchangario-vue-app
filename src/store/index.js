@@ -29,6 +29,14 @@ const exchanges = [
   },
 ]
 
+const _fetchExchanges = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(exchanges)
+    }, 1000)
+  })
+}
+
 export default createStore({
   state() {
     return {
@@ -36,10 +44,9 @@ export default createStore({
     }
   },
   actions: {
-    getExchanges({ commit }) {
-      setTimeout(() => {
-        commit('setExchanges', exchanges)
-      }, 1000)
+    async getExchanges({ commit }) {
+      const exchanges = await _fetchExchanges()
+      commit('setExchanges', exchanges)
     },
   },
   mutations: {
