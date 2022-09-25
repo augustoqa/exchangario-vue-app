@@ -36,10 +36,15 @@ export default createStore({
     }
   },
   actions: {
-    getExchanges({ state }) {
+    getExchanges({ commit }) {
       setTimeout(() => {
-        state.exchanges = exchanges
+        commit('setExchanges', exchanges)
       }, 1000)
+    },
+  },
+  mutations: {
+    setExchanges(state, exchanges) {
+      state.exchanges = exchanges
     },
   },
 })
