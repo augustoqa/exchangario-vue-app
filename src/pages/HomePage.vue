@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     exchanges() {
-      return this.$store.state.exchanges
+      return this.$store.state.exchange.items
     },
   },
   created() {
