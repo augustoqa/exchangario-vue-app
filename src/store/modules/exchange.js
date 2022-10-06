@@ -1,3 +1,5 @@
+import db from '../../db'
+
 const exchanges = [
   {
     id: 'ad7a1231238dasd',
@@ -44,6 +46,7 @@ export default {
   },
   actions: {
     async getExchanges({ commit }) {
+      console.log(db)
       const exchanges = await _fetchExchanges()
       commit('setExchanges', exchanges)
     },
