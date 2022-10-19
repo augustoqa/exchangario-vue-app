@@ -9,6 +9,7 @@
             <div class="field">
               <div class="control">
                 <input
+                  v-model="form.email"
                   class="input is-large"
                   type="email"
                   placeholder="Your Email"
@@ -20,6 +21,7 @@
             <div class="field">
               <div class="control">
                 <input
+                  v-model="form.password"
                   class="input is-large"
                   type="password"
                   placeholder="Your Password"
@@ -28,6 +30,7 @@
               </div>
             </div>
             <button
+              @click="login"
               type="button"
               class="button is-block is-info is-large is-fullwidth"
             >
@@ -45,7 +48,21 @@
   </div>
 </template>
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      form: {
+        email: '',
+        password: '',
+      },
+    }
+  },
+  methods: {
+    login() {
+      alert(JSON.stringify(this.form))
+    },
+  },
+}
 </script>
 
 <style scoped>
