@@ -2,20 +2,38 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 export default {
   namespaced: true,
+  state() {
+    return {
+      register: {
+        isProcessing: false,
+        error: '',
+      },
+    }
+  },
+  mutations: {
+    setRegisterIsProcessing(state, isProcessing) {
+      state.register.isProcessing = isProcessing
+    },
+    setRegisterError(state, error) {
+      state.register.error = error
+    },
+  },
   actions: {
-    async register(_, { email, password }) {
-      const auth = getAuth()
+    async register({ commit }, { email, password }) {
+      commit('setRegisterIsProcessing', true)
+      commit('setRegisterError', '')
 
       try {
         const userCredentials = await createUserWithEmailAndPassword(
-          auth,
+          getAuth(),
           email,
           password
         )
-        alert('User has been registered!')
         return userCredentials.user
       } catch (e) {
-        console.error(e.message)
+        commit('setRegisterError', e.message)
+      } finally {
+        commit('setRegisterIsProcessing', false)
       }
     },
   },
