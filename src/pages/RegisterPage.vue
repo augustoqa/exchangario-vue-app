@@ -90,6 +90,18 @@ export default {
       ...useAuth(),
     }
   },
+  watch: {
+    error(message) {
+      if (message) {
+        alert(message)
+      }
+    },
+    isProcessing(processing, prevProcessing) {
+      if (!processing && prevProcessing && !this.error) {
+        this.$router.push('/')
+      }
+    },
+  },
 }
 </script>
 <style scoped>
