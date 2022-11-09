@@ -19,7 +19,7 @@ export default {
     },
   },
   actions: {
-    async register({ commit }, { email, password }) {
+    async register({ commit, dispatch }, { email, password }) {
       commit('setRegisterIsProcessing', true)
       commit('setRegisterError', '')
 
@@ -32,6 +32,7 @@ export default {
         return userCredentials.user
       } catch (e) {
         commit('setRegisterError', e.message)
+        dispatch('toast/error', e.message, { root: true })
       } finally {
         commit('setRegisterIsProcessing', false)
       }
