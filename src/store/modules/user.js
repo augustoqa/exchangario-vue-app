@@ -79,4 +79,9 @@ export default {
       await setDoc(doc(db, 'users', id), profile)
     },
   },
+  getters: {
+    isAuthenticated(state) {
+      return !!state.data
+    },
+  },
 }

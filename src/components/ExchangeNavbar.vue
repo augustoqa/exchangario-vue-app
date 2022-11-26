@@ -33,6 +33,7 @@
         </div>
       </div>
     </nav>
+    IS AUTH: {{ isAuthenticated }}
   </header>
 </template>
 
@@ -46,6 +47,11 @@ export default {
     items: {
       type: Array,
       required: true,
+    },
+  },
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters['user/isAuthenticated']
     },
   },
 }
