@@ -2,6 +2,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth'
 import { doc, setDoc, getDoc } from 'firebase/firestore'
@@ -69,6 +70,19 @@ export default {
           credit: 0,
           exchanges: [],
         })
+      } catch (e) {
+        commit('setAuthError', e.message)
+        dispatch('toast/error', e.message, { root: true })
+      } finally {
+        commit('setAuthIsProcessing', false)
+      }
+    },
+    async login({ commit, dispatch }, { email, password }) {
+      commit('setAuthIsProcessing', true)
+      commit('setAuthError', '')
+
+      try {
+        await signInWithEmailAndPassword(getAuth(), email, password)
       } catch (e) {
         commit('setAuthError', e.message)
         dispatch('toast/error', e.message, { root: true })
