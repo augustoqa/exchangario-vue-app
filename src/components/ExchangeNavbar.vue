@@ -22,6 +22,9 @@
         </div>
         <div id="navbar-menu" class="navbar-menu">
           <div class="navbar-end">
+            <div v-if="isAuthenticated" class="navbar-item">
+              {{ user.email }}
+            </div>
             <router-link
               v-for="item in items"
               v-bind:key="item.text"
@@ -33,7 +36,6 @@
         </div>
       </div>
     </nav>
-    IS AUTH: {{ isAuthenticated }} USER: {{ user?.username }}
   </header>
 </template>
 
