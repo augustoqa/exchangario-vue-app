@@ -32,6 +32,12 @@
               :to="item.link"
               >{{ item.text }}</router-link
             >
+            <div
+              @click="() => $store.dispatch('user/logout')"
+              class="navbar-item clickable"
+            >
+              Logout
+            </div>
           </div>
         </div>
       </div>
