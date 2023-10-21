@@ -63,6 +63,13 @@ export default {
   setup() {
     return useAuth()
   },
+  watch: {
+    isAuthenticated(isAuth) {
+      if (isAuth) {
+        this.$router.push('/')
+      }
+    },
+  },
   methods: {
     login() {
       this.$store.dispatch('user/login', this.form)
