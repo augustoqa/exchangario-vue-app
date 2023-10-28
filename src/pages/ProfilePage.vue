@@ -20,7 +20,7 @@
                 </p>
                 <p class="tagline">Very short user info</p>
               </div>
-              <button class="button is-success">Update Info</button>
+              <exchange-profile-modal></exchange-profile-modal>
             </div>
             <div
               class="stats-tab stats-tab-interactive column is-2-tablet is-4-mobile has-text-centered"
@@ -89,8 +89,12 @@
 
 <script>
 import useAuth from '@/composition/useAuth'
+import ExchangeProfileModal from '../components/ExchangeProfileModal.vue'
 
 export default {
+  components: {
+    ExchangeProfileModal,
+  },
   setup() {
     return useAuth()
   },
