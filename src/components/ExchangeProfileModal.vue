@@ -21,20 +21,22 @@
           <form>
             <div class="field">
               <label class="title">Username</label>
-              <input class="input" />
+              <input class="input" v-model="userProfile.username" />
             </div>
             <div class="field">
               <label class="title">Avatar</label>
-              <input class="input" />
+              <input class="input" v-model="userProfile.avatar" />
             </div>
             <div class="field">
               <label class="title">Info about user</label>
-              <input class="input" />
+              <input class="input" v-model="userProfile.info" />
             </div>
           </form>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success">Save changes</button>
+          <button @click="updateProfile()" class="button is-success">
+            Save changes
+          </button>
           <button @click="isOpen = false" class="button">Cancel</button>
         </footer>
       </div>
@@ -44,10 +46,22 @@
 
 <script>
 export default {
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       isOpen: false,
+      userProfile: { ...this.user },
     }
+  },
+  methods: {
+    updateProfile() {
+      console.log(this.userProfile)
+    },
   },
 }
 </script>

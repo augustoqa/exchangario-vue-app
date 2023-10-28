@@ -20,7 +20,7 @@
                 </p>
                 <p class="tagline">Very short user info</p>
               </div>
-              <exchange-profile-modal></exchange-profile-modal>
+              <exchange-profile-modal :user="user"></exchange-profile-modal>
             </div>
             <div
               class="stats-tab stats-tab-interactive column is-2-tablet is-4-mobile has-text-centered"
