@@ -31,6 +31,18 @@
               <label class="title">Info about user</label>
               <input class="input" v-model="userProfile.info" />
             </div>
+            <div class="field">
+              <label class="title">Address</label>
+              <input class="input" v-model="userProfile.address" />
+            </div>
+            <div class="field">
+              <label class="title">Country</label>
+              <input class="input" v-model="userProfile.country" />
+            </div>
+            <div class="field">
+              <label class="title">Phone</label>
+              <input class="input" v-model="userProfile.phone" />
+            </div>
           </form>
         </section>
         <footer class="modal-card-foot">
@@ -60,7 +72,9 @@ export default {
   },
   methods: {
     updateProfile() {
-      console.log(this.userProfile)
+      this.$store.dispatch('user/updateProfile', {
+        data: this.userProfile,
+      })
     },
   },
 }
