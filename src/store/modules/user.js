@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth'
-import { doc, setDoc, getDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore'
 import db from '../../db'
 
 export default {
@@ -29,6 +29,9 @@ export default {
     setUser(state, user) {
       state.data = user
     },
+    updateProfile(state, profile) {
+      state.data = { ...state.data, ...profile }
+    },
   },
   actions: {
     onAuthChange({ dispatch, commit }, callback) {
@@ -45,8 +48,11 @@ export default {
         }
       })
     },
-    updateProfile(_, { data }) {
-      console.log(data)
+    async updateProfile({ commit, dispatch }, { data }) {
+      const userRef = doc(db, 'users', data.id)
+      await updateDoc(userRef, data)
+      commit('updateProfile', data)
+      dispatch('toast/success', 'Profile has been updated!', { root: true })
     },
     async getUserProfile({ commit }, user) {
       const docRef = doc(db, 'users', user.uid)
