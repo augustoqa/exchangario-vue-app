@@ -74,6 +74,7 @@ export default {
     updateProfile() {
       this.$store.dispatch('user/updateProfile', {
         data: this.userProfile,
+        onSuccess: () => (this.isOpen = false),
       })
     },
   },
