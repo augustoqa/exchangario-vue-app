@@ -33,7 +33,12 @@
               >{{ item.text }}</router-link
             >
             <template v-if="isAuthenticated">
-              <router-link to="/profile" class="navbar-item">Profile</router-link>
+              <router-link to="/profile" class="navbar-item"
+                >Profile</router-link
+              >
+              <router-link to="/exchanges/new" class="navbar-item"
+                >New Exchange</router-link
+              >
               <div
                 @click="() => $store.dispatch('user/logout')"
                 class="navbar-item clickable"

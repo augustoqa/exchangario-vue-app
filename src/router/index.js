@@ -5,6 +5,7 @@ import FaqPage from './../pages/FaqPage'
 import RegisterPage from './../pages/RegisterPage'
 import LoginPage from './../pages/LoginPage'
 import ProfilePage from './../pages/ProfilePage'
+import ExchangeCreate from './../pages/ExchangeCreate.vue'
 
 import { getAuth } from 'firebase/auth'
 
@@ -28,6 +29,12 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: ProfilePage,
+    meta: { onlyAuthUser: true },
+  },
+  {
+    path: '/exchanges/new',
+    name: 'ExchangeCreate',
+    component: ExchangeCreate,
     meta: { onlyAuthUser: true },
   },
   {
