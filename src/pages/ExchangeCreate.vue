@@ -7,7 +7,7 @@
             <label class="label">Type</label>
             <div class="control">
               <div class="select">
-                <select>
+                <select v-model="form.type">
                   <option value="service">Service</option>
                   <option value="product">Product</option>
                 </select>
@@ -18,6 +18,7 @@
             <label class="label">Title</label>
             <div class="control">
               <input
+                v-model="form.title"
                 class="input"
                 type="text"
                 placeholder="Some Nice Product"
@@ -31,6 +32,7 @@
             <label class="label">Description</label>
             <div class="control">
               <textarea
+                v-model="form.description"
                 class="textarea"
                 placeholder="Some catchy description about product"
               >
@@ -41,6 +43,7 @@
             <label class="label">Image Link</label>
             <div class="control">
               <input
+                v-model="form.image"
                 class="input"
                 type="text"
                 placeholder="https://unsplash...."
@@ -50,19 +53,34 @@
           <div class="field">
             <label class="label">Price</label>
             <div class="control">
-              <input class="input" type="number" placeholder="249" />
+              <input
+                v-model="form.price"
+                class="input"
+                type="number"
+                placeholder="249"
+              />
             </div>
           </div>
           <div class="field">
             <label class="label">Country</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Slovakia" />
+              <input
+                v-model="form.country"
+                class="input"
+                type="text"
+                placeholder="Slovakia"
+              />
             </div>
           </div>
           <div class="field">
             <label class="label">City</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Bratislava" />
+              <input
+                v-model="form.city"
+                class="input"
+                type="text"
+                placeholder="Bratislava"
+              />
             </div>
           </div>
 
@@ -75,7 +93,9 @@
           </div>
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-link">Submit</button>
+              <button @click.prevent="createExchange" class="button is-link">
+                Submit
+              </button>
             </div>
             <div class="control">
               <button class="button is-text">Cancel</button>
@@ -88,7 +108,27 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      form: {
+        title: '',
+        description: '',
+        type: 'product',
+        image: '',
+        price: null,
+        country: '',
+        city: '',
+        tags: [],
+      },
+    }
+  },
+  methods: {
+    createExchange() {
+      alert(JSON.stringify(this.form))
+    },
+  },
+}
 </script>
 
 <style scoped>
