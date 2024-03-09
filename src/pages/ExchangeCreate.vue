@@ -47,7 +47,7 @@
                 type="text"
                 placeholder="https://unsplash...."
               />
-              <form-errors :errors="v$.form.description.$errors" />
+              <form-errors :errors="v$.form.image.$errors" />
             </div>
           </div>
           <div class="field">
@@ -120,6 +120,7 @@ import {
   helpers,
 } from '@vuelidate/validators'
 import FormErrors from '@/components/FormErrors.vue'
+import { supportedFileType } from '../helpers/validators'
 
 export default {
   components: {
@@ -154,7 +155,14 @@ export default {
         },
         description: { required },
         type: { required },
-        image: { required, url },
+        image: {
+          required,
+          url,
+          supportedFileType: helpers.withMessage(
+            'Invalid format!',
+            supportedFileType
+          ),
+        },
         price: { required, minValue: minValue(1) },
         country: { required },
         city: { required },
