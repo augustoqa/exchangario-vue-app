@@ -1,5 +1,12 @@
 import db from '../../db'
-import { query, collectionGroup, getDocs, doc } from 'firebase/firestore'
+import {
+  query,
+  collectionGroup,
+  getDocs,
+  doc,
+  addDoc,
+  collection,
+} from 'firebase/firestore'
 
 export default {
   namespaced: true,
@@ -20,12 +27,15 @@ export default {
 
       commit('setExchanges', exchanges)
     },
-    async createExchange({ rootState }, { data, onSuccess }) {
-      debugger
+    async createExchange({ rootState, dispatch }, { data, onSuccess }) {
       const userRef = doc(db, 'users', rootState.user.data.id)
       data.user = userRef
 
-      console.log(data)
+      await addDoc(collection(db, 'exchanges'), data)
+
+      dispatch('toast/success', 'Exchange was created successfully!', {
+        root: true,
+      })
 
       onSuccess()
     },
