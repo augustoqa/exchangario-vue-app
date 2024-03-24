@@ -20,6 +20,10 @@ export default {
 
       commit('setExchanges', exchanges)
     },
+    async createExchange(_, { data, onSuccess }) {
+      console.log(data)
+      onSuccess()
+    },
   },
   mutations: {
     setExchanges(state, exchanges) {
