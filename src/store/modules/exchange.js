@@ -1,5 +1,5 @@
 import db from '../../db'
-import { query, collectionGroup, getDocs } from 'firebase/firestore'
+import { query, collectionGroup, getDocs, doc } from 'firebase/firestore'
 
 export default {
   namespaced: true,
@@ -20,8 +20,13 @@ export default {
 
       commit('setExchanges', exchanges)
     },
-    async createExchange(_, { data, onSuccess }) {
+    async createExchange({ rootState }, { data, onSuccess }) {
+      debugger
+      const userRef = doc(db, 'users', rootState.user.data.id)
+      data.user = userRef
+
       console.log(data)
+
       onSuccess()
     },
   },
