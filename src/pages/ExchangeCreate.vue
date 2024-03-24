@@ -91,7 +91,19 @@
           <div class="field">
             <label class="label">Tags</label>
             <div class="control">
-              <input class="input" type="text" placeholder="programming" />
+              <input
+                @input="handleTags"
+                class="input"
+                type="text"
+                placeholder="programming"
+              />
+              <div
+                v-for="tag in form.tags"
+                :key="tag"
+                class="tag is-primary is-medium"
+              >
+                {{ tag }}
+              </div>
             </div>
           </div>
           <div class="field is-grouped">
@@ -120,7 +132,6 @@ import {
   helpers,
 } from '@vuelidate/validators'
 import FormErrors from '@/components/FormErrors.vue'
-import { supportedFileType } from '../helpers/validators'
 
 export default {
   components: {
@@ -158,10 +169,6 @@ export default {
         image: {
           required,
           url,
-          supportedFileType: helpers.withMessage(
-            'Invalid format!',
-            supportedFileType
-          ),
         },
         price: { required, minValue: minValue(1) },
         country: { required },
@@ -175,6 +182,19 @@ export default {
 
       if (isValid) {
         alert(JSON.stringify(this.form))
+      }
+    },
+    handleTags(event) {
+      const { value } = event.target
+
+      if (
+        value &&
+        value.trim().length > 1 &&
+        (value.substr(-1) === ',' || value.substr(-1) === ' ')
+      ) {
+        const _value = value.split(',')[0].trim()
+        this.form.tags.push(_value)
+        event.target.value = ''
       }
     },
   },
