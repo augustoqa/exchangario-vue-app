@@ -14,9 +14,7 @@
                   placeholder="Email"
                   autocomplete="email"
                 />
-                <div class="form-error">
-                  <div class="help is-danger">Invalid Value</div>
-                </div>
+                <form-errors :errors="v$.form.email.$errors" />
               </div>
             </div>
             <div class="field">
@@ -27,6 +25,7 @@
                   type="text"
                   placeholder="Username"
                 />
+                <form-errors :errors="v$.form.username.$errors" />
               </div>
             </div>
             <div class="field">
@@ -38,6 +37,7 @@
                   placeholder="Password"
                   autocomplete="current-password"
                 />
+                <form-errors :errors="v$.form.password.$errors" />
               </div>
             </div>
             <div class="field">
@@ -48,6 +48,7 @@
                   type="password"
                   placeholder="Repeat the password"
                 />
+                <form-errors :errors="v$.form.passwordConfirmation.$errors" />
               </div>
             </div>
             <button
@@ -71,8 +72,14 @@
 
 <script>
 import useAuth from '../composition/useAuth'
+import { useVuelidate } from '@vuelidate/core'
+import { required, sameAs, helpers, email } from '@vuelidate/validators'
+import FormErrors from '@/components/FormErrors.vue'
 
 export default {
+  components: {
+    FormErrors,
+  },
   data() {
     return {
       form: {
@@ -83,8 +90,27 @@ export default {
       },
     }
   },
+  validations() {
+    return {
+      form: {
+        email: { required, email },
+        username: { required },
+        password: { required },
+        passwordConfirmation: {
+          required,
+          sameAs: helpers.withMessage(
+            'Must be same as the password',
+            sameAs(this.form.password)
+          ),
+        },
+      },
+    }
+  },
   setup() {
-    return useAuth()
+    return {
+      ...useAuth(),
+      v$: useVuelidate(),
+    }
   },
   watch: {
     isAuthenticated(isAuth) {
@@ -94,8 +120,11 @@ export default {
     },
   },
   methods: {
-    register() {
-      this.$store.dispatch('user/register', this.form)
+    async register() {
+      const isValid = await this.v$.$validate()
+      if (isValid) {
+        this.$store.dispatch('user/register', this.form)
+      }
     },
   },
 }
