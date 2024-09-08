@@ -9,7 +9,10 @@
           class="column is-12-mobile is-6-tablet is-4-widescreen is-6-desktop"
         >
           <div class="item post-card bottom-border">
-            <a class="item-link" href="#">
+            <router-link
+              :to="{ name: 'ExchangeDetail', params: { id: exchange.id } }"
+              class="item-link"
+            >
               <figure
                 class="image is-2by1 item-figure background-img"
                 :style="{
@@ -22,7 +25,7 @@
                   <font-awesome-icon icon="star" />
                 </div>
               </div>
-            </a>
+            </router-link>
             <div class="item-tags">
               <a
                 v-for="tag in exchange.tags"
