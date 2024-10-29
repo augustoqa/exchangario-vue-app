@@ -1,3 +1,4 @@
+import slugify from 'slugify'
 import db from '../../db'
 import {
   query,
@@ -30,6 +31,10 @@ export default {
     async createExchange({ rootState, dispatch }, { data, onSuccess }) {
       const userRef = doc(db, 'users', rootState.user.data.id)
       data.user = userRef
+      data.slug = slugify(`${data.title} ${Date.now()}`, {
+        lower: true,
+        strict: true,
+      })
 
       await addDoc(collection(db, 'exchanges'), data)
 
