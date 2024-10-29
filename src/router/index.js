@@ -39,7 +39,7 @@ const routes = [
     meta: { onlyAuthUser: true },
   },
   {
-    path: '/exchanges/:id',
+    path: '/exchanges/:slug',
     name: 'ExchangeDetail',
     component: ExchangeDetailPage,
   },
