@@ -85,7 +85,12 @@
   </div>
 </template>
 <script>
-export default {}
+export default {
+  created() {
+    const { slug } = this.$route.params
+    this.$store.dispatch('exchange/getExchangeBySlug', slug)
+  },
+}
 </script>
 
 <style scoped lang="scss">

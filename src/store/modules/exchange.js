@@ -17,6 +17,9 @@ export default {
     }
   },
   actions: {
+    async getExchangeBySlug(_, slug) {
+      console.log(slug)
+    },
     async getExchanges({ commit }) {
       const exchangeQuery = query(collectionGroup(db, 'exchanges'))
       const snapshot = await getDocs(exchangeQuery)
