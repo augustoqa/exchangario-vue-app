@@ -2,6 +2,7 @@ import slugify from 'slugify'
 import db from '../../db'
 import {
   query,
+  where,
   collectionGroup,
   getDocs,
   doc,
@@ -14,11 +15,20 @@ export default {
   state() {
     return {
       items: [],
+      item: {},
     }
   },
   actions: {
-    async getExchangeBySlug(_, slug) {
-      console.log(slug)
+    async getExchangeBySlug({ commit }, slug) {
+      commit('setExchange', {})
+      const docQuery = query(
+        collection(db, 'exchanges'),
+        where('slug', '==', slug)
+      )
+
+      const querySnap = await getDocs(docQuery)
+      const exchange = querySnap.docs[0].data()
+      commit('setExchange', exchange)
     },
     async getExchanges({ commit }) {
       const exchangeQuery = query(collectionGroup(db, 'exchanges'))
@@ -51,6 +61,9 @@ export default {
   mutations: {
     setExchanges(state, exchanges) {
       state.items = exchanges
+    },
+    setExchange(state, exchange) {
+      state.item = exchange
     },
   },
 }
