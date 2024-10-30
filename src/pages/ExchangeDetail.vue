@@ -1,5 +1,5 @@
 <template>
-  <div class="page-wrapper">
+  <div v-if="exchange && exchange.slug" class="page-wrapper">
     <section class="hero is-black">
       <div class="hero-body">
         <div class="hero-img"></div>
@@ -9,18 +9,15 @@
               <h1 class="title">{{ exchange.title }}</h1>
               <h2 class="subtitle">{{ exchange.type }}</h2>
               <!-- Exchange User Start -->
-              <div class="user-tile">
+              <div v-if="!!exchangeUser" class="user-tile">
                 <div class="user-tile-image">
                   <figure class="image is-64x64">
-                    <img
-                      class="is-rounded"
-                      src="http://via.placeholder.com/100x100"
-                    />
+                    <img class="is-rounded" :src="exchangeUser.avatar" />
                   </figure>
                 </div>
                 <div class="user-tile-author center">
                   <h3 class="user-tile-author-name">
-                    by {{ exchange.user?.id }}
+                    by {{ exchangeUser.username }}
                   </h3>
                 </div>
               </div>
@@ -94,6 +91,9 @@ export default {
   computed: {
     exchange() {
       return this.$store.state.exchange.item
+    },
+    exchangeUser() {
+      return this.exchange.user
     },
   },
 }

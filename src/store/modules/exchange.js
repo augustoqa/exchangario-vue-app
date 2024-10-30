@@ -5,6 +5,7 @@ import {
   where,
   collectionGroup,
   getDocs,
+  getDoc,
   doc,
   addDoc,
   collection,
@@ -28,6 +29,10 @@ export default {
 
       const querySnap = await getDocs(docQuery)
       const exchange = querySnap.docs[0].data()
+
+      const userSnap = await getDoc(exchange.user)
+      exchange.user = userSnap.data()
+
       commit('setExchange', exchange)
     },
     async getExchanges({ commit }) {
