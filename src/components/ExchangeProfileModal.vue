@@ -1,5 +1,5 @@
 <template>
-  <exchange-modal :onModalSubmit="updateProfile">
+  <exchange-modal ref="exchangeModal" :onModalSubmit="updateProfile">
     <form>
       <div class="field">
         <label class="title">Username</label>
@@ -48,16 +48,23 @@ export default {
       required: true,
     },
   },
+  computed: {
+    modal() {
+      console.log(this.$refs.exchangeModal)
+
+      return this.$refs.exchangeModal
+    },
+  },
   data() {
     return {
       userProfile: { ...this.user },
     }
   },
   methods: {
-    updateProfile({ onSuccess }) {
+    updateProfile() {
       this.$store.dispatch('user/updateProfile', {
         data: this.userProfile,
-        onSuccess,
+        onSuccess: this.modal.close,
       })
     },
   },
