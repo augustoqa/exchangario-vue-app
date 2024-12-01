@@ -1,6 +1,12 @@
 <template>
   <div>
+    <template v-if="$slots.activator">
+      <div @click="isOpen = true">
+        <slot name="activator" />
+      </div>
+    </template>
     <button
+      v-else
       @click="isOpen = true"
       class="button is-block is-success is-light is-fullwidth"
     >
