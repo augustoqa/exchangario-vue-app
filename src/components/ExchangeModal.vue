@@ -47,7 +47,9 @@ export default {
   },
   methods: {
     submitModal() {
-      this.onModalSubmit()
+      this.onModalSubmit({
+        onSuccess: () => (this.isOpen = false),
+      })
     },
   },
 }
