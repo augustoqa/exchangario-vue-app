@@ -1,5 +1,5 @@
 <template>
-  <exchange-modal>
+  <exchange-modal :onModalSubmit="updateProfile">
     <form>
       <div class="field">
         <label class="title">Username</label>

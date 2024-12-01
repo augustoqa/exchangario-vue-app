@@ -22,7 +22,9 @@
           <slot />
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success">Save changes</button>
+          <button @click="submitModal" class="button is-success">
+            Save changes
+          </button>
           <button @click="isOpen = false" class="button">Cancel</button>
         </footer>
       </div>
@@ -32,10 +34,21 @@
 
 <script>
 export default {
+  props: {
+    onModalSubmit: {
+      type: Function,
+      required: false,
+    },
+  },
   data() {
     return {
       isOpen: false,
     }
+  },
+  methods: {
+    submitModal() {
+      this.onModalSubmit()
+    },
   },
 }
 </script>
