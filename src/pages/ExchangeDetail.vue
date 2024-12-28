@@ -38,12 +38,7 @@
                         <span class="title is-2">${{ exchange.price }} </span>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      class="button is-block is-success is-light is-fullwidth"
-                    >
-                      Make a deal
-                    </button>
+                    <exchange-deal-modal />
                     <div class="content">
                       <ul class="m-t-none">
                         <li>Get item today</li>
@@ -83,7 +78,12 @@
   </div>
 </template>
 <script>
+import ExchangeDealModal from '@/components/ExchangeDealModal.vue'
+
 export default {
+  components: {
+    ExchangeDealModal,
+  },
   created() {
     const { slug } = this.$route.params
     this.$store.dispatch('exchange/getExchangeBySlug', slug)
