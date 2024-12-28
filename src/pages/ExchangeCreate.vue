@@ -163,7 +163,7 @@ export default {
           required: helpers.withMessage('Title cannot be empty!', required),
           minLength: helpers.withMessage(
             'Title length should be at least 10!',
-            minLength(20)
+            minLength(10)
           ),
         },
         description: { required },
