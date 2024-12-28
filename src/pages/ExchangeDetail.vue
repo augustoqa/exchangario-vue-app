@@ -38,7 +38,7 @@
                         <span class="title is-2">${{ exchange.price }} </span>
                       </div>
                     </div>
-                    <exchange-deal-modal />
+                    <exchange-deal-modal :exchange="exchange" />
                     <div class="content">
                       <ul class="m-t-none">
                         <li>Get item today</li>
