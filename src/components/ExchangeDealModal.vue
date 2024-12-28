@@ -11,7 +11,7 @@
         <div class="field">
           Would you prefer to exchange credit ?
           <label class="checkbox is-large">
-            <input type="checkbox" />
+            <input v-model="isPriceExchange" type="checkbox" />
             Yes
           </label>
         </div>
@@ -20,6 +20,7 @@
           <div class="control">
             <input
               v-model="selectedPrice"
+              :disabled="!isPriceExchange"
               class="input"
               type="number"
               placeholder="40"
@@ -27,11 +28,11 @@
             <i> You don't have enough of credit </i>
           </div>
         </div>
-        <div class="field disabled">
+        <div class="field">
           <label class="label">Exchange</label>
           <div class="control">
             <div class="select">
-              <select>
+              <select :disabled="isPriceExchange">
                 <option>Exchange 1</option>
                 <option>Exchange 2</option>
               </select>
@@ -67,6 +68,7 @@ export default {
   data() {
     return {
       selectedPrice: null,
+      isPriceExchange: false,
     }
   },
   methods: {
