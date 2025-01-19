@@ -32,7 +32,7 @@
           <label class="label">Exchange</label>
           <div class="control">
             <div class="select">
-              <select :disabled="isPriceExchange">
+              <select :disabled="isPriceExchange" v-model="selectedExchange">
                 <option
                   v-for="exchange in availableExchanges"
                   :key="exchange.slug"
@@ -44,7 +44,10 @@
             </div>
           </div>
         </div>
-        <div>Your price is: <span class="deal-highlight">1000$</span></div>
+        <div v-if="selectedExchange">
+          Your price is:
+          <span class="deal-highlight">{{ selectedExchange.price }}$</span>
+        </div>
         <div class="price price">You are offering the exact same amount</div>
         <i>Allowed difference is not less than 20%</i>
       </div>
@@ -77,8 +80,16 @@ export default {
   data() {
     return {
       selectedPrice: null,
+      selectedExchange: null,
       isPriceExchange: false,
     }
+  },
+  watch: {
+    isPriceExchange(value) {
+      if (value) {
+        this.selectedExchange = null
+      }
+    },
   },
   methods: {
     createOpportunity() {
