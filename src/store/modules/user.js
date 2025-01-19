@@ -77,7 +77,6 @@ export default {
       const querySnap = await getDocs(docQuery)
       const exchanges = querySnap.docs.map((doc) => doc.data())
 
-      debugger
       const userWithProfile = {
         id: user.uid,
         email: user.email,
