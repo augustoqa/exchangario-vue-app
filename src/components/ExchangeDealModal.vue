@@ -49,7 +49,7 @@
           <span class="deal-highlight">{{ offeredPrice }}$</span>
         </div>
         Percentage Difference {{ percentageDifference }}%
-        <div class="price price">You are offering the exact same amount</div>
+        <div class="price price">{{ priceDifferenceText }}</div>
         <i>Allowed difference is not less than 20%</i>
       </div>
     </div>
@@ -98,13 +98,26 @@ export default {
       return null
     },
     percentageDifference() {
-      if (!this.offeredPrice) {
+      if (this.offeredPrice === null) {
         return null
       }
 
       const priceDifference = this.offeredPrice - this.exchange.price
 
       return (priceDifference / this.exchange.price) * 100
+    },
+    priceDifferenceText() {
+      if (this.percentageDifference === null) return ''
+      if (this.percentageDifference === 0)
+        return 'You are offering the exact same amount'
+
+      const roundedPercentageDiff =
+        Math.round(this.percentageDifference * 100) / 100
+      const differenceText = this.percentageDifference > 0 ? 'higher' : 'lower'
+
+      return `Offered price is ${Math.abs(
+        roundedPercentageDiff
+      )}% ${differenceText} than exchange price`
     },
   },
   watch: {
