@@ -1,5 +1,8 @@
 <template>
-  <exchange-modal :onModalSubmit="createOpportunity">
+  <exchange-modal
+    :onModalSubmit="createOpportunity"
+    :isDisabled="!isAllowedPrice"
+  >
     <div class="deal">
       <div class="deal-highlight">{{ exchange.user.username }}'s Offer</div>
       <div class="deal-wrapper">
@@ -49,8 +52,16 @@
           <span class="deal-highlight">{{ offeredPrice }}$</span>
         </div>
         Percentage Difference {{ percentageDifference }}%
-        <div class="price price">{{ priceDifferenceText }}</div>
-        <i>Allowed difference is not less than 20%</i>
+        <div
+          v-if="percentageDifference !== null"
+          :class="`price price-${percentageDiffClass}`"
+        >
+          {{ priceDifferenceText }}
+        </div>
+        <i
+          >Allowed difference is not less than
+          {{ ALLOWED_PRICE_DIFFERENCE }}%</i
+        >
       </div>
     </div>
     <template #activator>
@@ -83,6 +94,7 @@ export default {
       selectedPrice: null,
       selectedExchange: null,
       isPriceExchange: false,
+      ALLOWED_PRICE_DIFFERENCE: 30,
     }
   },
   computed: {
@@ -98,7 +110,7 @@ export default {
       return null
     },
     percentageDifference() {
-      if (this.offeredPrice === null) {
+      if (this.offeredPrice === null || this.offeredPrice === '') {
         return null
       }
 
@@ -118,6 +130,17 @@ export default {
       return `Offered price is ${Math.abs(
         roundedPercentageDiff
       )}% ${differenceText} than exchange price`
+    },
+    isAllowedPrice() {
+      if (!this.offeredPrice) return false
+
+      return (
+        this.percentageDifference <= this.ALLOWED_PRICE_DIFFERENCE &&
+        this.percentageDifference >= -this.ALLOWED_PRICE_DIFFERENCE
+      )
+    },
+    percentageDiffClass() {
+      return this.isAllowedPrice ? 'allowed' : 'declined'
     },
   },
   watch: {
