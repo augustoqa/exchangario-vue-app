@@ -32,6 +32,7 @@ export default {
 
       const userSnap = await getDoc(exchange.user)
       exchange.user = userSnap.data()
+      exchange.user.id = userSnap.id
 
       commit('setExchange', exchange)
     },

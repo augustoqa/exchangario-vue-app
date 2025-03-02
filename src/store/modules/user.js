@@ -140,5 +140,7 @@ export default {
     isAuthenticated(state) {
       return !!state.data
     },
+    isExchangeOwner: (state) => (exchangeUserId) =>
+      state.data && exchangeUserId && state.data.id === exchangeUserId,
   },
 }

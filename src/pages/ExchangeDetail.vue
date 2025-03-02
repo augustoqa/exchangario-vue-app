@@ -7,6 +7,7 @@
           <div class="columns">
             <div class="column is-9">
               <h1 class="title">{{ exchange.title }}</h1>
+              Exchange Owner: {{ isExchangeOwner ? 'IS-OWNER' : 'NOT OWNER' }}
               <h2 class="subtitle">{{ exchange.type }}</h2>
               <!-- Exchange User Start -->
               <div v-if="!!exchangeUser" class="user-tile">
@@ -103,6 +104,9 @@ export default {
     },
     userExchanges() {
       return this.user.exchanges || []
+    },
+    isExchangeOwner() {
+      return this.$store.getters['user/isExchangeOwner'](this.exchangeUser.id)
     },
   },
 }
