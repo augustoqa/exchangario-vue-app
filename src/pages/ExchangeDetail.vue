@@ -7,7 +7,6 @@
           <div class="columns">
             <div class="column is-9">
               <h1 class="title">{{ exchange.title }}</h1>
-              Exchange Owner: {{ isExchangeOwner ? 'IS-OWNER' : 'NOT OWNER' }}
               <h2 class="subtitle">{{ exchange.type }}</h2>
               <!-- Exchange User Start -->
               <div v-if="!!exchangeUser" class="user-tile">
@@ -40,6 +39,7 @@
                       </div>
                     </div>
                     <exchange-deal-modal
+                      v-if="canCreateExchange"
                       :exchange="exchange"
                       :availableExchanges="userExchanges"
                     />
@@ -96,6 +96,9 @@ export default {
     user() {
       return this.$store.state.user.data
     },
+    isAuth() {
+      return this.$store.getters['user/isAuthenticated']
+    },
     exchange() {
       return this.$store.state.exchange.item
     },
@@ -107,6 +110,9 @@ export default {
     },
     isExchangeOwner() {
       return this.$store.getters['user/isExchangeOwner'](this.exchangeUser.id)
+    },
+    canCreateExchange() {
+      return this.isAuth && !this.isExchangeOwner
     },
   },
 }
