@@ -156,8 +156,7 @@ export default {
     },
   },
   methods: {
-    createOpportunity() {
-      debugger
+    createOpportunity({ onSuccess }) {
       const opportunity = {
         title: this.exchange.title,
         fromUserId: this.user.id,
@@ -173,7 +172,10 @@ export default {
         opportunity.fromExchangeId = this.selectedExchange.id
       }
 
-      console.log(opportunity)
+      this.$store.dispatch('opportunity/createOpportunity', {
+        opportunity,
+        onSuccess,
+      })
     },
   },
 }
