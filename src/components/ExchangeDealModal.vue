@@ -98,6 +98,9 @@ export default {
     }
   },
   computed: {
+    user() {
+      return this.$store.state.user.data
+    },
     offeredPrice() {
       if (this.isPriceExchange) {
         return this.selectedPrice
@@ -154,7 +157,23 @@ export default {
   },
   methods: {
     createOpportunity() {
-      alert('Submitting form!')
+      debugger
+      const opportunity = {
+        title: this.exchange.title,
+        fromUserId: this.user.id,
+        fromExchangeId: null,
+        toExchangeId: this.exchange.id,
+        toUserId: this.exchange.user.id,
+        price: null,
+      }
+
+      if (this.isPriceExchange) {
+        opportunity.price = this.selectedPrice
+      } else {
+        opportunity.fromExchangeId = this.selectedExchange.id
+      }
+
+      console.log(opportunity)
     },
   },
 }
