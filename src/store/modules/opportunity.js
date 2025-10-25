@@ -1,25 +1,26 @@
 import db from '@/db'
-import { doc, Timestamp } from 'firebase/firestore'
+import { addDoc, collection, doc, Timestamp } from 'firebase/firestore'
 
 export default {
   namespaced: true,
   actions: {
-    createOpportunity(_, { opportunity, onSuccess }) {
-      opportunity.createdAt = Timestamp.fromDate(new Date())
-
-      opportunity.toExchange = doc(db, 'exchanges', opportunity.toExchangeId)
-      opportunity.toUser = doc(db, 'users', opportunity.toUserId)
-      opportunity.fromUser = doc(db, 'users', opportunity.fromUserId)
-
-      if (opportunity.fromExchangeId) {
-        opportunity.fromExchange = doc(
-          db,
-          'exchanges',
-          opportunity.fromExchangeId
-        )
+    async createOpportunity({ dispatch }, { data, onSuccess }) {
+      const opportunity = {
+        title: data.title,
+        createdAt: Timestamp.fromDate(new Date()),
+        toUser: doc(db, 'users', data.toUserId),
+        fromUser: doc(db, 'users', data.fromUserId),
+        toExchange: doc(db, 'exchanges', data.toExchangeId),
       }
 
-      console.log(opportunity)
+      if (data.fromExchangeId) {
+        opportunity.fromExchange = doc(db, 'exchanges', data.fromExchangeId)
+      } else {
+        opportunity.price = data.price
+      }
+
+      await addDoc(collection(db, 'opportunities'), opportunity)
+      dispatch('toast/success', 'Opportunity was send!', { root: true })
 
       onSuccess()
     },
