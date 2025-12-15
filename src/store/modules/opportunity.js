@@ -7,7 +7,27 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
 } from 'firebase/firestore'
+
+const extractDataFromOpportunity = async (opportunity, id) => {
+  if (opportunity.fromExchange) {
+    const fromExchangeDoc = await getDoc(opportunity.fromExchange)
+    opportunity.fromExchange = {
+      ...fromExchangeDoc.data(),
+      id: fromExchangeDoc.id,
+    }
+  }
+
+  const toExchangeDoc = await getDoc(opportunity.toExchange)
+  opportunity.toExchange = { ...toExchangeDoc.data(), id: toExchangeDoc.id }
+
+  const fromUserDoc = await getDoc(opportunity.fromUser)
+  opportunity.fromUser = { ...fromUserDoc.data(), id: fromUserDoc.id }
+  opportunity.id = id
+
+  return opportunity
+}
 
 export default {
   namespaced: true,
@@ -30,10 +50,12 @@ export default {
       )
 
       const opportunitiesSnap = await getDocs(opportunityQuery)
-      const opportunities = opportunitiesSnap.docs.map((doc) => ({
-        ...doc.data,
-        id: doc.id,
-      }))
+      const opportunities = await Promise.all(
+        opportunitiesSnap.docs.map(
+          (doc) => extractDataFromOpportunity(doc.data()),
+          doc.id
+        )
+      )
 
       commit('setOpportunities', { resource: 'opportunities', opportunities })
     },
