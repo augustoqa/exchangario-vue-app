@@ -102,6 +102,9 @@ export default {
       }
     },
   },
+  created() {
+    this.$store.dispatch('opportunity/getOpportunities')
+  },
 }
 </script>
 
