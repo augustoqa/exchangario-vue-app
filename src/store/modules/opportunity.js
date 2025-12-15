@@ -11,8 +11,14 @@ import {
 
 export default {
   namespaced: true,
+  state() {
+    return {
+      opportunities: [],
+      sendOpportunities: [],
+    }
+  },
   actions: {
-    async getOpportunities({ rootState, dispatch }) {
+    async getOpportunities({ rootState, dispatch, commit }) {
       const { id } = rootState.user.data
       if (!id) {
         dispatch('toast/error', 'User is not logged in!', { root: true })
@@ -29,7 +35,7 @@ export default {
         id: doc.id,
       }))
 
-      console.log(opportunities)
+      commit('setOpportunities', { resource: 'opportunities', opportunities })
     },
     async createOpportunity({ dispatch }, { data, onSuccess }) {
       const opportunity = {
@@ -50,6 +56,11 @@ export default {
       dispatch('toast/success', 'Opportunity was send!', { root: true })
 
       onSuccess()
+    },
+  },
+  mutations: {
+    setOpportunities(state, { resource, opportunities }) {
+      state[resource] = opportunities
     },
   },
 }
