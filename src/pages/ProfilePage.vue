@@ -40,20 +40,29 @@
           </div>
         </div>
         <div class="columns is-mobile is-multiline">
-          <template v-if="true">
-            <div class="column is-3-tablet is-6-mobile">
+          <template v-if="opportunities && opportunities.length > 0">
+            <div
+              v-for="opportunity in opportunities"
+              :key="opportunity.id"
+              class="column is-3-tablet is-6-mobile"
+            >
               <div class="card">
-                <div class="card-image">
+                <div v-if="opportunity.fromExchange" class="card-image">
                   <figure class="image is-4by3">
-                    <img src="http://via.placeholder.com/400x400" />
+                    <img :src="opportunity.fromExchange.image" />
                   </figure>
                 </div>
                 <div class="card-content">
                   <div class="media">
                     <div class="media-content">
-                      <p class="title is-6 mb-2"><b>Offer:</b> 1000$</p>
+                      <p v-if="opportunity.fromExchange" class="title is-6">
+                        <b>Offer:</b> {{ opportunity.fromExchange.title }}
+                      </p>
+                      <p v-else class="title is-6">
+                        <b>Offer:</b> {{ opportunity.price }}$
+                      </p>
                       <p class="title is-6">
-                        <b>Request:</b> Programming Lessons
+                        <b>Request:</b> {{ opportunity.title }}
                       </p>
                       <p class="subtitle is-6">
                         <span class="tag is-dark subtitle">Pending</span>
@@ -61,9 +70,10 @@
                     </div>
                   </div>
                   <div class="content">
-                    <p>
-                      User wants to exchange your item thorugh money exchange
+                    <p v-if="opportunity.fromExchange">
+                      {{ opportunity.fromExchange.description }}
                     </p>
+                    <p v-else>User wnat to exchange your item for money</p>
                   </div>
                 </div>
                 <footer class="card-footer">
